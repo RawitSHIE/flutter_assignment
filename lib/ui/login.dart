@@ -2,94 +2,103 @@ import 'package:flutter/material.dart';
 import 'register.dart';
 import 'home.dart';
 
-class Login extends StatefulWidget{
+class Login extends StatefulWidget {
   @override
   LoginState createState() {
-    // TODO: implement createState
     return new LoginState();
   }
 }
 
-class LoginState extends State<Login>{
+class authen {
+  String user = "admin";
+  String pass = "1234";
+}
+
+class LoginState extends State<Login> {
+  BuildContext context1;
+
+  TextEditingController usercontrol = TextEditingController();
+  TextEditingController passcontrol = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  authen auThen = authen();
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    context1 = context;
     return Scaffold(
-      body: Form(
-        key: _formKey,
-        child: Center(
-          child: ListView(
-            padding: EdgeInsets.all(20.0),
-            shrinkWrap: true,
-            children: <Widget>[
-              Image.asset(
-                "images/flutter.png",
-                height: 200,
+        body: Form(
+      key: _formKey,
+      child: Center(
+        child: ListView(
+          padding: EdgeInsets.all(20.0),
+          shrinkWrap: true,
+          children: <Widget>[
+            Image.asset(
+              "images/flutter.png",
+              height: 200,
+            ),
+            TextFormField(
+              controller: usercontrol,
+              decoration: InputDecoration(
+                labelText: "User ID",
+                hintText: "User ID",
+                icon: Icon(Icons.perm_identity),
               ),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: "User ID",
-                  hintText: "User ID",
-                  icon: Icon(Icons.perm_identity),
+              keyboardType: TextInputType.emailAddress,
+              onSaved: (value) => print(value),
+            ),
+            TextFormField(
+              controller: passcontrol,
+              decoration: InputDecoration(
+                labelText: "Password",
+                hintText: "input your password",
+                icon: Icon(Icons.lock),
+              ),
+              keyboardType: TextInputType.text,
+              obscureText: true,
+            ),
+            RaisedButton(
+              child: Text("Login", style: TextStyle(color: Colors.white)),
+              elevation: 4.0,
+              color: Theme.of(context).accentColor,
+              splashColor: Colors.blueGrey,
+              onPressed: () {
+                if (usercontrol.text == '' || passcontrol.text == '') {
+                  _scaffoldKey.currentState.showSnackBar(new SnackBar(
+                    content: Text("กรุณาระบุ user or password"),
+                  ));
+                } else if (auThen.user == usercontrol.text &&
+                    auThen.pass == passcontrol.text) {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => Home()));
+                } else {
+                  _scaffoldKey.currentState.showSnackBar(new SnackBar(
+                    content: Text("user or password ไม่ถูกต้อง"),
+                  ));
+                }
+              },
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                FlatButton(
+                  child: Text("Register New Account",
+                      style: TextStyle(
+                        color: Colors.blueGrey,
+                      )),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Register()));
+                  },
                 ),
-                keyboardType: TextInputType.emailAddress,
-                onSaved: (value) => print(value),
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return "Please input value";
-                  }
-                },
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: "Password",
-                  hintText: "input your password",
-                  icon: Icon(Icons.lock),
-                ),
-                keyboardType: TextInputType.text,
-                obscureText: true,
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return "Please input value";
-                  }else{
-                    Navigator.push(context, 
-                    MaterialPageRoute(
-                      builder: (context) => Home()
-                    )
-                  );
-                  }
-                },
-              ),
-              RaisedButton(
-                child: Text("Login", style: TextStyle(color: Colors.white)),
-                elevation: 4.0,
-                color: Theme.of(context).accentColor,
-                splashColor: Colors.blueGrey,
-                onPressed: () {
-                  _formKey.currentState.validate();
-                },
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  FlatButton(
-                    child: Text("Register New Account", style: TextStyle(color: Colors.blueGrey,)),
-                    onPressed: (){
-                      Navigator.push(context, 
-                        MaterialPageRoute(
-                          builder: (context) => Register()
-                        )
-                      );
-                    },
-                  ),
-                ],
-              )
-            ],
-          ),
+              ],
+            )
+          ],
         ),
-      )
-    );
+      ),
+    ));
   }
-
 }
