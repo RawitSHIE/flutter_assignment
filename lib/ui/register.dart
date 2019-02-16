@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'home.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -71,7 +70,7 @@ class RegisterState extends State<Register> {
         }
         else if (con_pass.text == new_pass.text && new_user.text != "") {
           Navigator.pop(context);
-        }else if(con_pass.text == "" || new_pass.text == "" || new_user == ""){
+        }else if(con_pass.text == "" || new_pass.text == "" || new_user.text == ""){
           _scaffoldKey.currentState.showSnackBar(
             new SnackBar(
               content: Text("กรุณาระบุข้อมูลให้ครบถ้วน"),
