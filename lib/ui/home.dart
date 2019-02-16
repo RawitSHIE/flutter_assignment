@@ -9,6 +9,7 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
+  int index = 0;
   List tabs = [
     Text("Home"),
     Text("Notify"),
@@ -16,7 +17,7 @@ class HomeState extends State<Home> {
     Text("Profile"),
     Text("Setup")
   ];
-  int index = 0;
+  
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
