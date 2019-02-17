@@ -9,9 +9,9 @@ class Login extends StatefulWidget {
   }
 }
 
-class authen {
+class Authen {
   String user = "admin";
-  String pass = "1234";
+  String pass = "admin";
 }
 
 class LoginState extends State<Login> {
@@ -23,7 +23,7 @@ class LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  authen auThen = authen();
+  Authen auThen = Authen();
 
   TextFormField userid() {
     return TextFormField(

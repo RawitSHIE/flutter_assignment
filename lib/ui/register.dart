@@ -46,7 +46,7 @@ class RegisterState extends State<Register> {
       controller: con_pass,
       decoration: InputDecoration(
         labelText: "Confirm Password",
-        hintText: "Input your password",
+        hintText: "Repeat your password",
         icon: Icon(Icons.lock),
       ),
       keyboardType: TextInputType.text,
@@ -63,25 +63,20 @@ class RegisterState extends State<Register> {
         style: TextStyle(color: Colors.white),
       ),
       onPressed: () {
-        if(new_user.text == "admin"){
+        if (con_pass.text == "" || new_pass.text == "" || new_user.text == "") {
+          _scaffoldKey.currentState.showSnackBar(new SnackBar(
+            content: Text("กรุณาระบุข้อมูลให้ครบถ้วน"),
+          ));
+        } else if (con_pass.text != new_pass.text && new_user.text != "") {
+          _scaffoldKey.currentState.showSnackBar(new SnackBar(
+            content: Text("Password didn't match"),
+          ));
+        } else if (new_user.text == "admin") {
           _scaffoldKey.currentState.showSnackBar(SnackBar(
             content: Text("user นี้มีอยู่ในระบบแล้ว"),
           ));
-        }
-        else if (con_pass.text == new_pass.text && new_user.text != "") {
+        } else if (con_pass.text == new_pass.text && new_user.text != "") {
           Navigator.pop(context);
-        }else if(con_pass.text == "" || new_pass.text == "" || new_user.text == ""){
-          _scaffoldKey.currentState.showSnackBar(
-            new SnackBar(
-              content: Text("กรุณาระบุข้อมูลให้ครบถ้วน"),
-            )
-          );
-        }else if(con_pass.text != new_pass.text && new_user.text != ""){
-          _scaffoldKey.currentState.showSnackBar(
-            new SnackBar(
-              content: Text("Password didn't match"),
-            )
-          );
         }
       },
     );
